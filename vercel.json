@@ -1,0 +1,10 @@
+# Vercel Deployment Configuration
+
+# Build settings
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "vite"
+}
+
