@@ -1,8 +1,8 @@
-# Kushal & Co. - Portfolio Website
+# The Guild - Portfolio Website
 
-A modern, responsive React website for freelancers built with React, TailwindCSS, and Framer Motion. Features a sleek dark theme with neon cyan accents and smooth animations.
+A modern, responsive React website for freelancers built with React, TailwindCSS, and Framer Motion. Features a sleek dark theme with red and blue accents and smooth animations.
 
-![Kushal & Co.](https://img.shields.io/badge/Status-Ready-00ffe0?style=for-the-badge)
+![The Guild](https://img.shields.io/badge/Status-Ready-ef4444?style=for-the-badge)
 
 ## ✨ Features
 

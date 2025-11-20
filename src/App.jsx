@@ -1,21 +1,56 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import HomePage from './pages/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import AboutPage from './pages/AboutPage';
+import PortfolioPage from './pages/PortfolioPage';
+import ContactPage from './pages/ContactPage';
+import PageTransition from './components/PageTransition';
+
+function AppRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={
+          <PageTransition>
+            <HomePage />
+          </PageTransition>
+        } />
+        <Route path="/services" element={
+          <PageTransition>
+            <ServicesPage />
+          </PageTransition>
+        } />
+        <Route path="/about" element={
+          <PageTransition>
+            <AboutPage />
+          </PageTransition>
+        } />
+        <Route path="/portfolio" element={
+          <PageTransition>
+            <PortfolioPage />
+          </PageTransition>
+        } />
+        <Route path="/contact" element={
+          <PageTransition>
+            <ContactPage />
+          </PageTransition>
+        } />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark text-white font-poppins">
-      <Navbar />
-      <Hero />
-      <Services />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-dark text-white font-poppins">
+        <AppRoutes />
+      </div>
+    </Router>
   );
 }
 
