@@ -108,7 +108,7 @@ const ContactForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-8 py-4 bg-gradient-to-r from-primary via-red-600 to-secondary text-white font-bold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-[0_0_40px_rgba(239,68,68,0.6)] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+          className="w-full px-8 py-4 bg-gradient-to-r from-primary via-red-600 to-secondary text-white font-arcade font-bold rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-[0_0_40px_rgba(239,68,68,0.6)] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-secondary via-blue-600 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           {isSubmitting ? (

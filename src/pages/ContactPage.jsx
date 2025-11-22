@@ -18,7 +18,7 @@ const ContactPage = () => {
         <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-press-start mb-4 tracking-tight">
               <span className="text-white">Get In</span>{' '}
               <span className="guild-gradient">Touch</span>
             </h1>

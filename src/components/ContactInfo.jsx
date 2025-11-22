@@ -13,7 +13,7 @@ const ContactInfo = () => {
       className="space-y-8"
     >
       <div>
-        <h3 className="text-3xl font-bold mb-6">{CONTACT.info.heading}</h3>
+        <h3 className="text-3xl font-press-start mb-6">{CONTACT.info.heading}</h3>
         <p className="text-gray-400 leading-relaxed mb-8">
           {CONTACT.info.description}
         </p>
@@ -54,7 +54,7 @@ const ContactInfo = () => {
         rel="noopener noreferrer"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-xl transition-all duration-500 ease-out hover:shadow-[0_0_40px_rgba(34,197,94,0.6)]"
+        className="inline-flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-arcade font-bold rounded-xl transition-all duration-500 ease-out hover:shadow-[0_0_40px_rgba(34,197,94,0.6)]"
       >
         <FaWhatsapp size={24} />
         <span>Chat on WhatsApp</span>

@@ -47,7 +47,7 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-dark text-white font-poppins">
+      <div className="min-h-screen bg-dark text-white font-arcade">
         <AppRoutes />
       </div>
     </Router>

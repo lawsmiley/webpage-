@@ -64,6 +64,18 @@ export const SERVICES = {
         "Visual Identity",
         "Style Guides"
       ]
+    },
+    {
+      id: "mobile-dev",
+      icon: "FaMobileAlt",
+      title: "Mobile Development",
+      description: "Native and cross-platform mobile applications for iOS and Android. Built with React Native, Flutter, and modern mobile technologies.",
+      features: [
+        "iOS & Android Apps",
+        "React Native",
+        "Flutter Development",
+        "App Store Optimization"
+      ]
     }
   ]
 };

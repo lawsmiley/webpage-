@@ -1,94 +1,246 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { PROJECTS } from '../constants/content';
 
-const Projects = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
+gsap.registerPlugin(ScrollTrigger);
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 30 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
-    },
-  };
+const Projects = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Enhanced header animation
+      gsap.from(headerRef.current, {
+        opacity: 0,
+        y: 60,
+        scale: 0.95,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      });
+
+      // Enhanced stagger animation for project cards
+      cardsRef.current.forEach((card, index) => {
+        if (!card) return;
+
+        const image = card.querySelector('.project-image');
+        const overlay = card.querySelector('.project-overlay');
+        const links = card.querySelectorAll('.project-link');
+        const tags = card.querySelectorAll('.project-tag');
+        const title = card.querySelector('.project-title');
+
+        gsap.from(card, {
+          opacity: 0,
+          scale: 0.85,
+          y: 80,
+          rotationX: -15,
+          duration: 1,
+          delay: index * 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        });
+
+        // Magnetic hover effect
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          gsap.to(card, {
+            rotationY: x * 0.03,
+            rotationX: -y * 0.03,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+
+        // Enhanced hover effects
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            y: -20,
+            scale: 1.03,
+            rotationY: 0,
+            rotationX: 0,
+            z: 50,
+            duration: 0.5,
+            ease: 'power2.out',
+          });
+
+          if (image) {
+            gsap.to(image, {
+              scale: 1.2,
+              rotation: 3,
+              duration: 0.7,
+              ease: 'power2.out',
+            });
+          }
+
+          if (overlay) {
+            gsap.to(overlay, {
+              opacity: 0.95,
+              duration: 0.5,
+            });
+          }
+
+          if (title) {
+            gsap.to(title, {
+              scale: 1.05,
+              y: -5,
+              color: '#ef4444',
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          }
+
+          // Animate links with enhanced effect
+          gsap.fromTo(
+            links,
+            {
+              scale: 0,
+              rotation: -180,
+              opacity: 0,
+            },
+            {
+              scale: 1,
+              rotation: 0,
+              opacity: 1,
+              duration: 0.5,
+              stagger: 0.1,
+              ease: 'back.out(2)',
+            }
+          );
+
+          // Animate tags with glow
+          gsap.to(tags, {
+            scale: 1.15,
+            y: -3,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: 'back.out(1.7)',
+          });
+
+          // Enhanced glow
+          gsap.to(card, {
+            boxShadow: '0 25px 70px rgba(239, 68, 68, 0.4), 0 0 50px rgba(59, 130, 246, 0.3)',
+            duration: 0.5,
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            y: 0,
+            scale: 1,
+            rotationY: 0,
+            rotationX: 0,
+            z: 0,
+            boxShadow: 'none',
+            duration: 0.5,
+            ease: 'power2.out',
+          });
+
+          if (image) {
+            gsap.to(image, {
+              scale: 1,
+              rotation: 0,
+              duration: 0.7,
+              ease: 'power2.out',
+            });
+          }
+
+          if (overlay) {
+            gsap.to(overlay, {
+              opacity: 0,
+              duration: 0.5,
+            });
+          }
+
+          if (title) {
+            gsap.to(title, {
+              scale: 1,
+              y: 0,
+              color: '#ffffff',
+              duration: 0.4,
+              ease: 'power2.out',
+            });
+          }
+
+          gsap.to(links, {
+            scale: 0,
+            rotation: -180,
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+
+          gsap.to(tags, {
+            scale: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+          });
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-transparent via-dark-light/50 to-transparent">
-      {/* Background elements */}
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary/10 via-secondary/5 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-secondary/10 via-primary/5 to-transparent rounded-full blur-3xl"></div>
+    <section ref={sectionRef} id="projects" className="py-20 md:py-32 relative overflow-hidden section-bg">
+      <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-tl from-primary/12 via-secondary/6 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-[700px] h-[700px] bg-gradient-to-br from-secondary/12 via-primary/6 to-transparent rounded-full blur-3xl"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-            <span className="text-primary drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">{PROJECTS.heading.title.split(' ')[0]}</span> <span className="text-secondary drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">{PROJECTS.heading.title.split(' ')[1]}</span>
+        <div ref={headerRef} className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-press-start mb-4 tracking-tight">
+            <span className="text-primary glow-text-primary drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">{PROJECTS.heading.title.split(' ')[0]}</span>{' '}
+            <span className="text-secondary glow-text-secondary drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]">{PROJECTS.heading.title.split(' ')[1]}</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto font-arcade text-enhanced">
             {PROJECTS.heading.subtitle}
           </p>
-        </motion.div>
+        </div>
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PROJECTS.items.map((project, index) => (
-            <motion.div
+            <div
               key={project.id}
-              variants={cardVariants}
-              whileHover={{ y: -15, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative bg-gradient-to-br from-dark via-dark-light to-dark border border-white/10 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-500 ease-out hover:shadow-[0_20px_50px_rgba(239,68,68,0.3)]"
+              ref={(el) => (cardsRef.current[index] = el)}
+              className="group relative glass-card rounded-2xl overflow-hidden cursor-pointer card-hover card-border-glow"
+              style={{ perspective: '1000px' }}
             >
-              {/* Image */}
               <div className="relative h-48 md:h-64 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-125 group-hover:rotate-2 transition-all duration-700 ease-out"
+                  className="project-image w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/70 to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-transparent to-secondary/0 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-700"></div>
+                <div className="project-overlay absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent opacity-0 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-transparent to-secondary/0 group-hover:from-primary/25 group-hover:to-secondary/25 transition-all duration-700"></div>
                 
-                {/* Overlay Links */}
                 <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <a
                     href={project.link}
-                    className="p-3 bg-primary text-dark rounded-full hover:bg-white transition-colors"
+                    className="project-link p-4 bg-primary text-white rounded-full hover:bg-red-600 transition-colors glow-primary"
                     aria-label="View project"
                   >
                     <FaExternalLinkAlt size={20} />
                   </a>
                   <a
                     href={project.github}
-                    className="p-3 bg-primary text-dark rounded-full hover:bg-white transition-colors"
+                    className="project-link p-4 bg-secondary text-white rounded-full hover:bg-blue-600 transition-colors glow-secondary"
                     aria-label="View on GitHub"
                   >
                     <FaGithub size={20} />
@@ -96,23 +248,21 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+              <div className="p-6 bg-gradient-to-b from-transparent to-dark/50">
+                <h3 className="project-title text-2xl font-press-start mb-3 transition-colors text-enhanced">
                   {project.title}
                 </h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
+                <p className="text-gray-300 mb-4 leading-relaxed font-arcade text-enhanced">
                   {project.description}
                 </p>
                 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, idx) => {
                     const isRed = idx % 2 === 0;
                     return (
                       <span
                         key={idx}
-                        className={`px-3 py-1 text-sm ${isRed ? 'bg-primary/10 text-primary border-primary/30' : 'bg-secondary/10 text-secondary border-secondary/30'} border rounded-full`}
+                        className={`project-tag px-4 py-1.5 text-sm font-arcade font-bold ${isRed ? 'bg-primary/15 text-primary border border-primary/40' : 'bg-secondary/15 text-secondary border border-secondary/40'} rounded-full transition-all`}
                       >
                         {tag}
                       </span>
@@ -120,13 +270,12 @@ const Projects = () => {
                   })}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Projects;
-

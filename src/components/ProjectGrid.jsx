@@ -74,7 +74,7 @@ const ProjectGrid = ({ allProjects = false }) => {
           </div>
 
           <div className="p-6">
-            <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+            <h3 className="text-2xl font-press-start mb-3 group-hover:text-primary transition-colors">
               {project.title}
             </h3>
             <p className="text-gray-400 mb-4 leading-relaxed">

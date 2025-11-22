@@ -106,12 +106,20 @@ const Hero = () => (
         className="mt-8 flex items-center justify-center gap-4"
       >
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/contact" className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-red-600 hover:from-red-600 hover:to-primary text-white transition-all duration-500 ease-out hover:shadow-neon text-base md:text-lg">
+          <Link 
+            to="/contact" 
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-red-600 hover:from-red-600 hover:to-primary text-white transition-all duration-500 ease-out hover:shadow-neon text-base md:text-lg cursor-pointer"
+            style={{ pointerEvents: 'auto', zIndex: 20, position: 'relative', cursor: 'pointer' }}
+          >
             START PROJECT
           </Link>
         </motion.div>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/portfolio" className="px-6 py-3 rounded-xl border-2 border-secondary/50 text-secondary hover:border-secondary hover:bg-secondary/10 transition-all duration-500 ease-out hover:shadow-blue-glow text-base md:text-lg">
+          <Link 
+            to="/portfolio" 
+            className="px-6 py-3 rounded-xl border-2 border-secondary/50 text-secondary hover:border-secondary hover:bg-secondary/10 transition-all duration-500 ease-out hover:shadow-blue-glow text-base md:text-lg cursor-pointer"
+            style={{ pointerEvents: 'auto', zIndex: 20, position: 'relative', cursor: 'pointer' }}
+          >
             VIEW PORTFOLIO
           </Link>
         </motion.div>
@@ -521,6 +529,7 @@ const Contact = () => {
             </motion.a>
           </div>
         </motion.form>
+        </div>
       </div>
     </section>
   );
@@ -560,7 +569,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="bg-dark min-h-screen text-white font-sans">
+    <div className="bg-dark min-h-screen text-white font-arcade">
       <Nav />
 
       <main className="pt-20">
